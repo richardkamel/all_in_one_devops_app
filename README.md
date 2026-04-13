@@ -16,7 +16,7 @@ Switch sessions and the whole workspace switches with you. Your tools follow you
 
 ## Features
 
-### ✅ Live Preview
+### Live Preview
 - Auto-detects how to start your dev server based on project type (React, Vue, Next.js, Django, Flask, FastAPI, Rails, Go, Rust, PHP, and more)
 - Detects the package manager in use (npm / yarn / pnpm / bun)
 - Parses stdout in real time to find the actual URL the server started on — no hardcoding ports
@@ -24,26 +24,26 @@ Switch sessions and the whole workspace switches with you. Your tools follow you
 - Resizable server log panel with ANSI stripping, auto-scroll, and selectable text
 - Override command input for one-off debug runs without changing the saved config
 
-### ✅ API Tester
+### API Tester
 - Send GET, POST, PUT, PATCH, DELETE requests with a clean request editor
 - Headers editor with per-row enable/disable toggles
 - JSON and raw body support with auto Content-Type
 - Color-coded response status badges, response time, pretty-printed JSON
 - Save requests per session — persists across restarts, loads instantly when you switch back
 
-### 🔲 Database Manager *(in progress)*
+### Database Manager *(in progress)*
 - Connect to PostgreSQL, MySQL, SQLite, and MongoDB
 - Browse tables and collections, run queries, view results
 
-### 🔲 Docker Manager *(in progress)*
+### Docker Manager *(in progress)*
 - Auto-detects `Dockerfile` and `docker-compose.yml` in the project folder
 - Start, stop, and restart containers with live log streaming
 
-### 🔲 File Change Tracker *(in progress)*
+### File Change Tracker *(in progress)*
 - Tracks what changed since the last checkpoint
 - Per-file diff view, toggle files in/out of the next save
 
-### 🔲 Checkpoint System *(in progress)*
+### Checkpoint System *(in progress)*
 - Named snapshots of your session state backed by git
 - Save, overwrite, or branch — without ever touching a terminal
 
@@ -65,7 +65,7 @@ Switch sessions and the whole workspace switches with you. Your tools follow you
 ## Project Structure
 
 ```
-devops_app/
+all_in_one_devops_app/
 ├── main.js          # Electron main process — IPC handlers, process management
 ├── preload.cjs      # contextBridge — exposes safe APIs to the renderer
 ├── src/
@@ -115,13 +115,13 @@ The desktop app window will open automatically once the dev server is ready.
 
 **Live Preview**
 1. In the sidebar, create a project and add a session linked to any local web project folder (React, Vue, Next.js, Django, etc.)
-2. Click the **Live Preview** tab — DevFlow will auto-detect the project type and start command
-3. Hit **Start Server** and the embedded browser will connect automatically when the server is ready
+2. Click the Live Preview tab — DevFlow will auto-detect the project type and start command
+3. Hit Start Server and the embedded browser will connect automatically when the server is ready
 
 **API Tester**
-1. Select any session and click the **API Tester** tab
-2. Enter a method and URL (e.g. `GET https://jsonplaceholder.typicode.com/posts/1`) and hit **Send**
-3. Use **Save** to store the request — it will persist and reload with the session
+1. Select any session and click the API Tester tab
+2. Enter a method and URL (e.g. `GET https://jsonplaceholder.typicode.com/posts/1`) and hit Send
+3. Use Save to store the request — it will persist and reload with the session
 
 ---
 
