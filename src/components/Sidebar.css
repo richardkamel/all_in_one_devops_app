@@ -1,0 +1,216 @@
+.sidebar {
+  width: 240px;
+  min-width: 240px;
+  background-color: var(--bg-panel);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.sidebar-header {
+  padding: 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.sidebar-logo {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: 0.3px;
+}
+
+.sidebar-hint {
+  padding: 12px 16px;
+  font-size: 12px;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.sidebar-section-label {
+  padding: 12px 16px 6px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--text-muted);
+}
+
+.sidebar-projects {
+  flex: 1;
+  overflow-y: auto;
+  padding-bottom: 8px;
+}
+
+.project-row {
+  display: flex;
+  align-items: center;
+  padding: 6px 12px;
+  cursor: pointer;
+  gap: 6px;
+  color: var(--text-secondary);
+}
+
+.project-row:hover {
+  background-color: var(--bg-hover);
+  color: var(--text-primary);
+}
+
+.chevron {
+  font-size: 14px;
+  transition: transform 0.15s;
+  display: inline-block;
+  width: 14px;
+  color: var(--text-muted);
+}
+
+.chevron.open {
+  transform: rotate(90deg);
+}
+
+.project-name {
+  flex: 1;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.project-actions {
+  display: flex;
+  gap: 2px;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.project-row:hover .project-actions {
+  opacity: 1;
+}
+
+.action-btn {
+  font-size: 14px;
+  color: var(--text-muted);
+  padding: 0 5px;
+  border-radius: 4px;
+  line-height: 1.4;
+}
+
+.action-btn:hover {
+  color: var(--text-primary);
+  background-color: var(--bg-hover);
+}
+
+.action-btn.danger:hover {
+  color: #f85149;
+  background-color: rgba(248, 81, 73, 0.1);
+}
+
+.session-delete {
+  opacity: 0;
+  margin-left: auto;
+  transition: opacity 0.15s;
+}
+
+.session-row:hover .session-delete {
+  opacity: 1;
+}
+
+.sessions-list {
+  padding-left: 8px;
+}
+
+.session-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 12px 5px 26px;
+  cursor: pointer;
+  border-radius: 4px;
+  margin: 1px 6px;
+  color: var(--text-secondary);
+}
+
+.session-row:hover {
+  background-color: var(--bg-hover);
+  color: var(--text-primary);
+}
+
+.session-row.active {
+  background-color: var(--bg-active);
+  color: var(--text-primary);
+}
+
+.session-icon {
+  font-size: 10px;
+  color: var(--text-muted);
+}
+
+.session-row.active .session-icon {
+  color: var(--text-primary);
+}
+
+.session-name {
+  font-size: 13px;
+}
+
+.inline-input-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px 4px 26px;
+  margin: 2px 6px;
+}
+
+.project-input-row {
+  padding: 4px 8px;
+  margin: 4px 6px;
+}
+
+.inline-input {
+  flex: 1;
+  background-color: var(--bg-hover);
+  border: 1px solid var(--accent);
+  border-radius: 4px;
+  color: var(--text-primary);
+  padding: 4px 8px;
+  font-size: 12px;
+  outline: none;
+}
+
+.inline-confirm {
+  color: var(--accent);
+  font-size: 14px;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.inline-confirm:hover {
+  background-color: var(--bg-hover);
+  color: var(--text-primary);
+}
+
+.sessions-empty {
+  padding: 4px 12px 4px 34px;
+  color: var(--text-muted);
+  font-size: 12px;
+  font-style: italic;
+}
+
+.sidebar-footer {
+  padding: 12px;
+  border-top: 1px solid var(--border);
+}
+
+.new-project-btn {
+  width: 100%;
+  padding: 7px 12px;
+  background-color: var(--bg-hover);
+  color: var(--text-secondary);
+  border-radius: 6px;
+  font-size: 12px;
+  text-align: left;
+  transition: background-color 0.15s, color 0.15s;
+}
+
+.new-project-btn:hover {
+  background-color: var(--accent);
+  color: white;
+}
