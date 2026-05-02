@@ -2,7 +2,7 @@ import { app, BrowserWindow, ipcMain, dialog } from 'electron'
 import { join, dirname } from 'path'
 import { fileURLToPath } from 'url'
 import { readFileSync, writeFileSync, existsSync, readdirSync } from 'fs'
-import { spawn } from 'child_process'
+import { spawn, execSync } from 'child_process'
 
 const servers = new Map()
 const __dirname = dirname(fileURLToPath(import.meta.url))
@@ -33,6 +33,31 @@ function createWindow() {
     }
   })
   win.loadURL('http://localhost:5999')
+
+  win.on('close', async (event) => {
+    if (servers.size === 0) return
+
+    event.preventDefault()
+
+    const count = servers.size
+    const label = count === 1 ? 'A development server is' : `${count} development servers are`
+
+    const { response } = await dialog.showMessageBox(win, {
+      type: 'warning',
+      title: 'Server still running',
+      message: `${label} still running.`,
+      detail: 'Closing the app will stop it. Any unsaved work in the running process will be lost.',
+      buttons: ['Cancel', 'Close App'],
+      defaultId: 0,
+      cancelId: 0,
+    })
+
+    if (response === 1) {
+      servers.forEach(child => killProcess(child))
+      servers.clear()
+      win.destroy()
+    }
+  })
 }
 
 app.whenReady().then(createWindow)
@@ -65,6 +90,24 @@ ipcMain.handle('load-command', (_event, sessionId) => {
   return data.commands?.[sessionId] || null
 })
 
+ipcMain.handle('save-settings', (_event, settings) => {
+  const data = readDataFile()
+  data.settings = settings
+  writeDataFile(data)
+})
+
+ipcMain.handle('load-settings', () => {
+  const data = readDataFile()
+  return data.settings || null
+})
+
+ipcMain.handle('get-git-config', () => {
+  function gitValue(key) {
+    try { return execSync(`git config --global ${key}`, { encoding: 'utf-8' }).trim() } catch { return '' }
+  }
+  return { name: gitValue('user.name'), email: gitValue('user.email') }
+})
+
 // ─── Project detection ───────────────────────────────────────────────────────
 
 function getFiles(folder) {
@@ -83,12 +126,12 @@ function getGemfile(folder) {
   try { return readFileSync(join(folder, 'Gemfile'), 'utf-8').toLowerCase() } catch { return '' }
 }
 
-// Detect package manager from lockfiles
-function detectPackageManager(files) {
+// Detect package manager from lockfiles, fall back to user setting
+function detectPackageManager(files, fallback = 'npm') {
   if (files.includes('bun.lockb')) return 'bun'
   if (files.includes('pnpm-lock.yaml')) return 'pnpm'
   if (files.includes('yarn.lock')) return 'yarn'
-  return 'npm'
+  return fallback
 }
 
 // Build the run command for a given package manager and script name
@@ -195,7 +238,7 @@ ipcMain.handle('detect-dev-server', (_event, folder) => {
 })
 
 // Detect start command — returns { command, known }
-function detectStartCommand(folder, files) {
+function detectStartCommand(folder, files, fallbackPM = 'npm') {
   const has = (name) => files.includes(name)
   const hasExt = (...exts) => files.some(f => exts.some(e => f.endsWith(e)))
 
@@ -203,7 +246,7 @@ function detectStartCommand(folder, files) {
   if (has('package.json')) {
     const pkg = getPackageJson(folder)
     if (pkg?.scripts) {
-      const pm = detectPackageManager(files)
+      const pm = detectPackageManager(files, fallbackPM)
       for (const name of ['dev', 'start', 'serve', 'develop']) {
         if (pkg.scripts[name]) return { command: pmRunCmd(pm, name), known: true }
       }
@@ -244,14 +287,14 @@ function detectStartCommand(folder, files) {
 }
 
 ipcMain.handle('get-start-command', (_event, { sessionId, folder }) => {
-  // Saved custom command takes priority
   const data = readDataFile()
   if (data.commands?.[sessionId]) {
     return { command: data.commands[sessionId], known: true, custom: true }
   }
   if (!folder || !existsSync(folder)) return { command: null, known: false }
   const files = getFiles(folder)
-  return detectStartCommand(folder, files)
+  const fallbackPM = data.settings?.packageManager || 'npm'
+  return detectStartCommand(folder, files, fallbackPM)
 })
 
 // ─── Server management ───────────────────────────────────────────────────────

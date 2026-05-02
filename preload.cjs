@@ -20,4 +20,7 @@ contextBridge.exposeInMainWorld('electron', {
   sendRequest: (opts) => ipcRenderer.invoke('send-request', opts),
   saveRequests: (sessionId, requests) => ipcRenderer.invoke('save-requests', { sessionId, requests }),
   loadRequests: (sessionId) => ipcRenderer.invoke('load-requests', sessionId),
+  saveSettings: (settings) => ipcRenderer.invoke('save-settings', settings),
+  loadSettings: () => ipcRenderer.invoke('load-settings'),
+  getGitConfig: () => ipcRenderer.invoke('get-git-config'),
 })

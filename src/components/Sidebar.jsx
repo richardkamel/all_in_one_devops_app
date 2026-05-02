@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
+import DbPickerModal from './DbPickerModal'
 import './Sidebar.css'
 
 export default function Sidebar({ activeSession, onSelectSession }) {
@@ -8,6 +9,7 @@ export default function Sidebar({ activeSession, onSelectSession }) {
   const [newProjectName, setNewProjectName] = useState('')
   const [newSessionInput, setNewSessionInput] = useState(null) // projectId or null
   const [newSessionName, setNewSessionName] = useState('')
+  const [pendingSession, setPendingSession] = useState(null) // { projectId, name, folder }
   const projectInputRef = useRef(null)
   const sessionInputRef = useRef(null)
 
@@ -58,18 +60,24 @@ export default function Sidebar({ activeSession, onSelectSession }) {
     cancelNewSession()
     const folder = await window.electron.pickFolder()
     if (!folder) return
-    setProjects(prev =>
-      prev.map(p =>
-        p.id === projectId
-          ? { ...p, sessions: [...p.sessions, { id: Date.now(), name, folder }] }
-          : p
-      )
-    )
+    setPendingSession({ projectId, name, folder })
   }
 
   function cancelNewSession() {
     setNewSessionInput(null)
     setNewSessionName('')
+  }
+
+  function finishSessionCreation(database) {
+    const { projectId, name, folder } = pendingSession
+    setPendingSession(null)
+    setProjects(prev =>
+      prev.map(p =>
+        p.id === projectId
+          ? { ...p, sessions: [...p.sessions, { id: Date.now(), name, folder, database }] }
+          : p
+      )
+    )
   }
 
   function deleteProject(projectId) {
@@ -186,6 +194,13 @@ export default function Sidebar({ activeSession, onSelectSession }) {
           + New Project
         </button>
       </div>
+
+      {pendingSession && (
+        <DbPickerModal
+          sessionName={pendingSession.name}
+          onConfirm={finishSessionCreation}
+        />
+      )}
     </div>
   )
 }

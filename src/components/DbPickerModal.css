@@ -1,0 +1,131 @@
+.dbm-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 500;
+}
+
+.dbm-card {
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  width: 100%;
+  max-width: 420px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ── Header ── */
+.dbm-header {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.dbm-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.dbm-subtitle {
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.dbm-subtitle strong {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+/* ── Grid of options ── */
+.dbm-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.dbm-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 14px 8px;
+  background: var(--bg-dark);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.dbm-option:hover {
+  border-color: var(--text-muted);
+  background: var(--bg-hover);
+}
+
+.dbm-option--selected {
+  border-color: var(--accent);
+  background: rgba(37, 99, 235, 0.12);
+}
+
+.dbm-option-abbr {
+  font-size: 13px;
+  font-weight: 700;
+  font-family: 'SF Mono', 'Cascadia Code', 'Consolas', monospace;
+  color: var(--text-secondary);
+  letter-spacing: 0.5px;
+}
+
+.dbm-option--selected .dbm-option-abbr {
+  color: #60a5fa;
+}
+
+.dbm-option-label {
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+.dbm-option--selected .dbm-option-label {
+  color: var(--text-primary);
+}
+
+/* ── Actions ── */
+.dbm-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.dbm-btn-primary {
+  flex: 1;
+  padding: 9px;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  transition: background 0.15s;
+}
+
+.dbm-btn-primary:hover {
+  background: var(--accent-hover);
+}
+
+.dbm-btn-skip {
+  font-size: 12px;
+  color: var(--text-muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.15s;
+}
+
+.dbm-btn-skip:hover {
+  color: var(--text-secondary);
+}

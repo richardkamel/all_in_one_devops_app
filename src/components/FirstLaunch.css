@@ -1,0 +1,259 @@
+.fl-backdrop {
+  position: fixed;
+  inset: 0;
+  background: var(--bg-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.fl-card {
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  width: 100%;
+  max-width: 540px;
+  max-height: 92vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Header ── */
+.fl-header {
+  padding: 32px 32px 24px;
+  text-align: center;
+  border-bottom: 1px solid var(--border);
+}
+
+.fl-logo {
+  font-size: 28px;
+  margin-bottom: 12px;
+}
+
+.fl-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.fl-subtitle {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* ── Sections ── */
+.fl-sections {
+  flex: 1;
+  padding: 0 32px;
+}
+
+.fl-section {
+  padding: 20px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.fl-section:last-child {
+  border-bottom: none;
+}
+
+.fl-section-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.fl-section-hint {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+  line-height: 1.4;
+}
+
+/* ── Radio group ── */
+.fl-radio-group {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.fl-radio {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--bg-dark);
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 500;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+  user-select: none;
+}
+
+.fl-radio input[type="radio"] {
+  display: none;
+}
+
+.fl-radio:hover {
+  border-color: var(--text-muted);
+  color: var(--text-primary);
+}
+
+.fl-radio--active {
+  border-color: var(--accent);
+  background: rgba(37, 99, 235, 0.12);
+  color: var(--text-primary);
+}
+
+/* ── Toggle ── */
+.fl-checkpoint-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.fl-toggle {
+  position: relative;
+  width: 40px;
+  height: 22px;
+  border-radius: 11px;
+  background: var(--bg-hover);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+  flex-shrink: 0;
+}
+
+.fl-toggle--on {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.fl-toggle-knob {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--text-secondary);
+  transition: transform 0.2s, background 0.2s;
+}
+
+.fl-toggle--on .fl-toggle-knob {
+  transform: translateX(18px);
+  background: #fff;
+}
+
+.fl-toggle-label {
+  font-size: 12px;
+  color: var(--text-secondary);
+  min-width: 54px;
+}
+
+.fl-interval {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.fl-number-input {
+  width: 52px;
+  padding: 4px 8px;
+  background: var(--bg-dark);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  color: var(--text-primary);
+  text-align: center;
+  font-size: 12px;
+}
+
+.fl-number-input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+/* ── Text fields ── */
+.fl-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.fl-field {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.fl-field-label {
+  font-size: 12px;
+  color: var(--text-secondary);
+  width: 40px;
+  flex-shrink: 0;
+}
+
+.fl-input {
+  flex: 1;
+  padding: 7px 10px;
+  background: var(--bg-dark);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  color: var(--text-primary);
+  font-size: 12px;
+}
+
+.fl-input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.fl-input::placeholder {
+  color: var(--text-muted);
+}
+
+/* ── Actions ── */
+.fl-actions {
+  padding: 20px 32px 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.fl-btn-primary {
+  width: 100%;
+  padding: 10px;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  transition: background 0.15s;
+}
+
+.fl-btn-primary:hover {
+  background: var(--accent-hover);
+}
+
+.fl-btn-skip {
+  font-size: 12px;
+  color: var(--text-muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.15s;
+}
+
+.fl-btn-skip:hover {
+  color: var(--text-secondary);
+}
