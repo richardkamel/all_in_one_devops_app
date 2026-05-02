@@ -33,13 +33,13 @@ DevFlow is built around **sessions**. Each session links to a folder on your mac
 - Save and restore without touching a terminal
 - Auto-initializes a git repo in the project folder if one doesn't exist
 
-### Database Manager *(coming soon)*
+### Database Manager
 - PostgreSQL, MySQL, SQLite, MongoDB
 
-### Docker Manager *(coming soon)*
+### Docker Manager
 - Detects Dockerfile and docker-compose.yml, start/stop/restart containers with live log streaming
 
-### File Change Tracker *(coming soon)*
+### File Change Tracker
 - Per-file diff view since the last checkpoint, toggle files in/out of the next save
 
 ---
